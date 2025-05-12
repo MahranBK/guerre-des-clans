@@ -1,0 +1,92 @@
+.cell {
+  aspect-ratio: 1;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.cell:hover {
+  background-color: #f0f0f0;
+}
+
+/* Zone styles */
+.cell.player1-zone {
+  background-color: #e3f2fd;
+}
+
+.cell.player2-zone {
+  background-color: #fce4ec;
+}
+
+.cell.neutral-zone {
+  background-color: #f5f5f5;
+}
+
+/* Selection styles */
+.cell.selected {
+  background-color: #4caf50;
+}
+
+.cell.valid-move {
+  background-color: #81c784;
+}
+
+.cell.valid-target {
+  background-color: #e57373;
+}
+
+/* Unit styles */
+.unit {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  transition: transform 0.3s;
+}
+
+.unit:hover {
+  transform: scale(1.1);
+}
+
+.unit.player1 {
+  background-color: #2196f3;
+}
+
+.unit.player2 {
+  background-color: #e91e63;
+}
+
+/* Unit type indicators */
+.unit.warrior::after {
+  content: "⚔️";
+}
+
+.unit.archer::after {
+  content: "🏹";
+}
+
+.unit.mage::after {
+  content: "🔮";
+}
+
+/* Unit state indicators */
+.unit.defending {
+  border: 3px solid #ffd700;
+}
+
+.unit.moved {
+  opacity: 0.7;
+}
+
+.unit.acted {
+  opacity: 0.5;
+}

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clans War - Epic Strategy Game</title>
+    <link rel="stylesheet" href="css/landing.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Persistent Music Control -->
+    <div class="music-control">
+      <button id="toggleMusic" class="music-btn" title="Toggle Music">🔊</button>
+    </div>
+
+    <!-- Intro Screen -->
+    <div class="intro-screen">
+      <div class="intro-overlay"></div>
+      <div class="intro-content">
+        <h1 class="intro-title">Clans War</h1>
+        <p class="intro-subtitle">An Epic Turn-Based Strategy Game</p>
+        <div class="intro-description">
+          <p>
+            Enter a world of ancient clans, powerful warriors, and magical
+            battles.
+          </p>
+          <p>Choose your clan, lead your army, and claim victory!</p>
+        </div>
+        <button id="enterGameBtn" class="glow-button">
+          Enter the Battlefield
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Game Screen (initially hidden) -->
+    <div class="landing-container" style="display: none">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1 class="game-title">Clans War</h1>
+        <p class="game-subtitle">An Epic Turn-Based Strategy Game</p>
+
+        <div class="clan-selection">
+          <h2>Player 1 - Choose Your Clan</h2>
+          <div class="clans" id="player1Clans">
+            <!-- <div class="clan-card" data-clan="mountain">
+              <div class="clan-icon">🏔️</div>
+              <h3>Mountain Clan</h3>
+              <p>Masters of defense and resilience</p>
+            </div> -->
+            <!-- <div class="clan-card" data-clan="plains">
+              <div class="clan-icon">🌾</div>
+              <h3>Plains Clan</h3>
+              <p>Swift archers and skilled hunters</p>
+            </div>
+            <div class="clan-card" data-clan="wise">
+              <div class="clan-icon">🔮</div>
+              <h3>Wise Clan</h3>
+              <p>Ancient magic and powerful spells</p>
+            </div> -->
+
+            <div class="clan-card" data-clan="mountain">
+              <div class="clan-icon">🏔️</div>
+              <h3>Mountain Clan</h3>
+
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Strong Defense</p>
+              <p class="bonus-description">
+                The Mountain Clan warriors are renowned for their resilience and
+                defensive prowess.
+              </p>
+            </div>
+
+            <div class="clan-card" data-clan="plains">
+              <div class="clan-icon">🌾</div>
+              <h3>Plains Clan</h3>
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Ranged Attacks</p>
+              <p class="bonus-description">
+                The Plains Clan archers have unmatched accuracy, making them
+                deadly at a distance.
+              </p>
+            </div>
+
+            <div class="clan-card" data-clan="wise">
+              <div class="clan-icon">🔮</div>
+              <h3>Wise Clan</h3>
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Powerful Spells</p>
+              <p class="bonus-description">
+                The Wise Clan possesses powerful magic but relies on strategy
+                rather than brute force.
+              </p>
+            </div>
+          </div>
+
+          <h2 class="player2-title">Player 2 - Choose Your Clan</h2>
+          <div class="clans" id="player2Clans">
+            <div class="clan-card" data-clan="mountain">
+              <div class="clan-icon">🏔️</div>
+              <h3>Mountain Clan</h3>
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Strong Defense</p>
+              <p class="bonus-description">
+                The Mountain Clan warriors are renowned for their resilience and
+                defensive prowess.
+              </p>
+            </div>
+            <div class="clan-card" data-clan="plains">
+              <div class="clan-icon">🌾</div>
+              <h3>Plains Clan</h3>
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Ranged Attacks</p>
+              <p class="bonus-description">
+                The Plains Clan archers have unmatched accuracy, making them
+                deadly at a distance.
+              </p>
+            </div>
+            <div class="clan-card" data-clan="wise">
+              <div class="clan-icon">🔮</div>
+              <h3>Wise Clan</h3>
+              <div class="clan-stats">
+                <div class="stat">
+                  <div class="circle">1</div>
+                  <div class="label">Warriors</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">2</div>
+                  <div class="label">Archers</div>
+                </div>
+                <div class="stat">
+                  <div class="circle">3</div>
+                  <div class="label">Mages</div>
+                </div>
+              </div>
+
+              <p class="bonus-title">Bonus: Powerful Spells</p>
+              <p class="bonus-description">
+                The Wise Clan possesses powerful magic but relies on strategy
+                rather than brute force.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-controls">
+          <button id="startGameBtn" class="glow-button">Start Battle</button>
+          <button id="rulesBtn" class="outline-button">Game Rules</button>
+        </div>
+      </div>
+
+      <!-- Rules Modal -->
+      <div id="rulesModal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2>Game Rules</h2>
+          <div class="rules-content">
+            <h3>Objective</h3>
+            <p>Defeat all enemy units to claim victory for your clan!</p>
+
+            <h3>Game Phases</h3>
+            <ul>
+              <li>
+                <strong>Setup Phase:</strong> Place your units in your territory
+              </li>
+              <li>
+                <strong>Movement Phase:</strong> Move your units strategically
+              </li>
+              <li>
+                <strong>Action Phase:</strong> Attack enemies or use special
+                abilities
+              </li>
+            </ul>
+
+            <h3>Unit Types</h3>
+            <ul>
+              <li>
+                <strong>Warrior:</strong> Strong melee fighters with high
+                defense
+              </li>
+              <li>
+                <strong>Archer:</strong> Long-range attackers with high accuracy
+              </li>
+              <li>
+                <strong>Mage:</strong> Powerful spellcasters with area effects
+              </li>
+            </ul>
+
+            <h3>Clan Bonuses</h3>
+            <ul>
+              <li><strong>Mountain Clan:</strong> +2 Defense for all units</li>
+              <li><strong>Plains Clan:</strong> +2 Accuracy for archers</li>
+              <li><strong>Wise Clan:</strong> 1.5x Spell power for mages</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/landing.js"></script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+.power-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.power-effect.active {
+    opacity: 1;
+}
+
+/* Warrior Powers */
+.power-effect.battlecry {
+    background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, rgba(255,215,0,0) 70%);
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.power-effect.shield-wall {
+    border: 4px solid rgba(72, 145, 255, 0.6);
+    animation: shield-pulse 1.5s ease-in-out;
+}
+
+/* Archer Powers */
+.power-effect.precise-shot {
+    background: linear-gradient(45deg, rgba(0,255,0,0.2) 0%, rgba(0,255,0,0) 100%);
+    animation: fade-slide 1s ease-out;
+}
+
+.power-effect.rain-of-arrows {
+    background-image: 
+        repeating-linear-gradient(45deg, 
+        rgba(139,69,19,0.2) 0%, 
+        rgba(139,69,19,0.2) 2px,
+        transparent 2px, 
+        transparent 10px);
+    animation: rain-fall 1s linear;
+}
+
+/* Mage Powers */
+.power-effect.fireball {
+    background: radial-gradient(circle, rgba(255,69,0,0.4) 0%, rgba(255,69,0,0) 70%);
+    animation: explode 1s ease-out;
+}
+
+.power-effect.arcane-shield {
+    border: 4px solid rgba(147,112,219,0.6);
+    box-shadow: 0 0 15px rgba(147,112,219,0.4);
+    animation: arcane-shield 1.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+@keyframes shield-pulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes fade-slide {
+    0% { transform: translateX(-20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes rain-fall {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes explode {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes arcane-shield {
+    0% { transform: scale(0.8); opacity: 0; }
+    25% { transform: scale(1.1); opacity: 0.8; }
+    75% { transform: scale(0.9); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* Power Selection UI */
+.power-selection-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 1000;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.powers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.power-button {
+    background: rgba(50, 50, 50, 0.8);
+    border: 1px solid #ffd700;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.power-button:hover:not(:disabled) {
+    background: rgba(70, 70, 70, 0.8);
+    transform: translateX(5px);
+}
+
+.power-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.power-name {
+    font-size: 1.2em;
+    color: #ffd700;
+    margin-bottom: 5px;
+}
+
+.power-description {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.power-cooldown {
+    font-size: 0.8em;
+    color: #ff4444;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.close-button:hover {
+    color: #ffd700;
+}
+
+/* Attack Range Indicator */
+.grid-cell.in-range {
+    position: relative;
+}
+
+.grid-cell.in-range::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 0, 0, 0.2);
+    border: 2px solid rgba(255, 0, 0, 0.4);
+    pointer-events: none;
+    animation: range-pulse 1s infinite;
+}
+
+@keyframes range-pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+} 

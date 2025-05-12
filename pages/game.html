@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clans War - Battle</title>
+    <link rel="stylesheet" href="../css/game.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="fantasy-overlay"></div>
+    <div class="game-container">
+      <div class="game-header">
+        <h1>Clans War</h1>
+        <div class="game-status">
+          Game Status: <span id="game-status">Setup Phase</span>
+        </div>
+      </div>
+      <div class="game-content">
+        <div class="player-panel" id="player1-panel">
+          <h2>Player 1</h2>
+          <div class="clan-info">
+            <h3>Clan: <span id="player1-clan-name">-</span></h3>
+          </div>
+          <div class="unit-info">
+            <h3>Units:</h3>
+            <div id="player1-units"></div>
+          </div>
+        </div>
+        <div class="game-board">
+          <div id="battlefield-grid"></div>
+        </div>
+        <div class="player-panel" id="player2-panel">
+          <h2>Player 2</h2>
+          <div class="clan-info">
+            <h3>Clan: <span id="player2-clan-name">-</span></h3>
+          </div>
+          <div class="unit-info">
+            <h3>Units:</h3>
+            <div id="player2-units"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-controls">
+        <div class="dice-section">
+          <div class="dice" id="dice">🎲</div>
+          <button id="roll-dice">Roll Dice</button>
+        </div>
+        <div class="action-buttons">
+          <button id="moveBtn">Move</button>
+          <button id="attackBtn">Attack</button>
+          <button id="defendBtn">Defend</button>
+          <button id="powerBtn">Use Power</button>
+          <button id="endTurnBtn">End Turn</button>
+        </div>
+      </div>
+      <div class="game-log">
+        <h3>Game Log</h3>
+        <div id="log-content"></div>
+      </div>
+    </div>
+    <script src="../js/grid.js"></script>
+    <script src="../js/units.js"></script>
+    <script src="../js/placement.js"></script>
+    <script src="../js/movement.js"></script>
+    <script src="../js/combat.js"></script>
+    <script src="../js/defense.js"></script>
+    <script src="../js/powers.js"></script>
+    <script src="../js/turns.js"></script>
+  </body>
+</html>
