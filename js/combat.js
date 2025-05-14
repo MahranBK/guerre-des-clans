@@ -4,7 +4,7 @@ class CombatManager {
         this.ATTACK_RANGES = {
             warrior: { min: 1, max: 1 },
             archer: { min: 2, max: 3 },
-            mage: { min: 1, max: 2 }
+            mage: { min: 2, max: 2 }
         };
 
         // Minimum roll needed to hit
