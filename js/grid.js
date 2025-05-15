@@ -1,12 +1,24 @@
-// Grid initialization logic for War of the Clans
-const GRID_SIZE = 10;
-const PLAYER1_ZONE = 3; // Top 3 rows
-const NEUTRAL_ZONE = 4; // Middle 4 rows
-const PLAYER2_ZONE = 3; // Bottom 3 rows
+document.addEventListener('DOMContentLoaded', () => {
 
-function initializeGrid() {
+    // grid constants initialization
+    const GRID_SIZE = 10; // nb of grid columns 
+    const PLAYER1_ZONE = 3; // Top 3 rows
+    const NEUTRAL_ZONE = 4; // Middle 4 rows
+
+    const clickSound = new Audio("../assets/audio/effects/click.mp3");
+    clickSound.volume = 0.2;
+
+    // add click sound effects to buttons
+    const interactiveElements = document.querySelectorAll("button");
+    interactiveElements.forEach((element) => {
+        element.addEventListener("click", () => {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        });
+    });
+
     const battlefield = document.getElementById('battlefield-grid');
-    battlefield.innerHTML = ''; // Clear any existing content
+    battlefield.innerHTML = ''; // clear any existing content
     
     // Add CSS Grid properties
     battlefield.style.display = 'grid';
@@ -20,7 +32,7 @@ function initializeGrid() {
             cell.id = `cell-${row}-${col}`;
             cell.className = 'grid-cell';
             
-            // Add zone classes
+            // add zone classes
             if (row < PLAYER1_ZONE) {
                 cell.classList.add('player1-zone');
             } else if (row < PLAYER1_ZONE + NEUTRAL_ZONE) {
@@ -29,14 +41,11 @@ function initializeGrid() {
                 cell.classList.add('player2-zone');
             }
             
-            // Add coordinates attribute for easier access
+            // add coordinates attributes to cell for easy access
             cell.dataset.row = row;
             cell.dataset.col = col;
             
             battlefield.appendChild(cell);
         }
     }
-}
-
-// Initialize grid when document is ready
-document.addEventListener('DOMContentLoaded', initializeGrid); 
+});

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   hoverSound.volume = 0.25;
 
   const clickSound = new Audio(
-    "./assets/audio/effects/selectClan.mp3"
+    "./assets/audio/effects/click.mp3"
   );
   clickSound.volume = 0.3;
 
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "pages/game.html";
   });
 
-  // add hover sound effects to buttons
+  // add hover sound effects to buttons & clan cards
   const interactiveElements = document.querySelectorAll("button, .clan-card");
   interactiveElements.forEach((element) => {
     element.addEventListener("mouseenter", () => {
