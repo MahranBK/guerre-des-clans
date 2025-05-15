@@ -1,3 +1,4 @@
+// to ensure all js code only runs after entire HTML doc has been fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   const enterGameBtn = document.getElementById("enterGameBtn");
   const toggleMusicBtn = document.getElementById("toggleMusic");
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const introScreen = document.querySelector(".intro-screen");
   const landingContainer = document.querySelector(".landing-container");
 
+  // Initiliaze variables
   let player1Clan = null;
   let player2Clan = null;
   let isMusicPlaying = false;
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Music Control
   let backgroundMusic = new Audio("assets/audio/music/bg_music.mp3");
   backgroundMusic.loop = true;
-  backgroundMusic.volume = 0.5;
+  backgroundMusic.volume = 0.4;
 
   function toggleMusic() {
     if (isMusicPlaying) {
@@ -40,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Sound effects
   const hoverSound = new Audio(
-    "https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"
+    "./assets/audio/effects/hoverOver.mp3"
   );
-  hoverSound.volume = 0.2;
+  hoverSound.volume = 0.25;
 
   const clickSound = new Audio(
-    "https://assets.mixkit.co/active_storage/sfx/270/270-preview.mp3"
+    "./assets/audio/effects/selectClan.mp3"
   );
   clickSound.volume = 0.3;
 
@@ -69,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clickSound.play();
       player1Clans.forEach((c) => c.classList.remove("selected"));
       card.classList.add("selected");
+      // assign chosen card data-clan attribute value to player1Clan
       player1Clan = card.dataset.clan;
     });
   });
@@ -79,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clickSound.play();
       player2Clans.forEach((c) => c.classList.remove("selected"));
       card.classList.add("selected");
+      // assign chosen card data-clan attribute value to player1Clan
       player2Clan = card.dataset.clan;
     });
   });
@@ -94,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     rulesModal.style.display = "none";
   });
 
+  // hide the rulesModal if clicking outside the modal-content
   window.addEventListener("click", (e) => {
     if (e.target === rulesModal) {
       rulesModal.style.display = "none";
@@ -108,12 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     clickSound.play();
+    // store chosen clans of both players into local storage of the browser
     localStorage.setItem("player1Clan", player1Clan);
     localStorage.setItem("player2Clan", player2Clan);
+    // redirect to game page 
     window.location.href = "pages/game.html";
   });
 
-  // Add hover sound effects
+  // add hover sound effects to buttons
   const interactiveElements = document.querySelectorAll("button, .clan-card");
   interactiveElements.forEach((element) => {
     element.addEventListener("mouseenter", () => {
@@ -122,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Start background music when user interacts with the page
+  // start bg music when user interacts with the page
   document.addEventListener(
     "click",
     () => {
@@ -134,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isMusicPlaying = true;
       }
     },
-    { once: true }
+    { once: true } // remove event listener after first time being triggered
   );
 });
 
