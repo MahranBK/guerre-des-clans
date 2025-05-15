@@ -1,4 +1,4 @@
-// Unit types and their base stats
+// unit types & their base stats
 const UNIT_TYPES = {
     WARRIOR: {
         type: 'warrior',
@@ -61,7 +61,7 @@ class Unit {
         this.maxHp = baseStats.hp;
         this.attack = baseStats.attack;
         this.defense = baseStats.defense;
-        this.baseDefense = baseStats.defense; // Store base defense value
+        this.baseDefense = baseStats.defense;
         this.attackRange = baseStats.attackRange;
         this.moveRange = baseStats.moveRange;
         this.symbol = baseStats.symbol;
@@ -72,10 +72,10 @@ class Unit {
     }
 
     takeDamage(amount) {
-        // Apply defense bonus if unit is defending
+        // apply defense bonus if unit is defending itself
         if (this.temporaryDefense && window.defenseManager) {
             const bonus = window.defenseManager.getDefenseBonus(this);
-            amount = Math.max(1, amount - bonus); // Ensure at least 1 damage
+            amount = Math.max(1, amount - bonus);
         }
         
         this.hp = Math.max(0, this.hp - amount);
@@ -119,43 +119,43 @@ class UnitManager {
         this.player1Clan = localStorage.getItem('player1Clan') || 'mountain';
         this.player2Clan = localStorage.getItem('player2Clan') || 'mountain';
         
-        // Display clan names
+        // Display clan names for example Mountain Clan or Plains Clan
         document.getElementById('player1-clan-name').textContent = CLAN_CONFIGS[this.player1Clan].name;
         document.getElementById('player2-clan-name').textContent = CLAN_CONFIGS[this.player2Clan].name;
     }
 
     generateUnits() {
-        // Generate units for player 1
+        // generate units for player 1
         this.generateClanUnits('player1', this.player1Clan);
-        // Generate units for player 2
+        // generate units for player 2
         this.generateClanUnits('player2', this.player2Clan);
     }
 
     generateClanUnits(player, clanType) {
         const config = CLAN_CONFIGS[clanType];
         
-        // Create warriors
+        // create warriors
         for (let i = 0; i < config.warriors; i++) {
             this.units[player].push(new Unit('warrior', player));
         }
         
-        // Create archers
+        // create archers
         for (let i = 0; i < config.archers; i++) {
             this.units[player].push(new Unit('archer', player));
         }
         
-        // Create mages
+        // create mages
         for (let i = 0; i < config.mages; i++) {
             this.units[player].push(new Unit('mage', player));
         }
     }
 
     displayUnitsInPanels() {
-        // Display units in player 1 panel
+        // display units in player 1 panel
         const player1Panel = document.getElementById('player1-units');
         player1Panel.innerHTML = this.createUnitDisplay(this.units.player1);
 
-        // Display units in player 2 panel
+        // display units in player 2 panel
         const player2Panel = document.getElementById('player2-units');
         player2Panel.innerHTML = this.createUnitDisplay(this.units.player2);
     }
@@ -173,10 +173,14 @@ class UnitManager {
     }
 
     getUnitById(unitId) {
+        /*using spread syntax "..." to list all array elements then join all units of both players into
+        a single array then find the unit with the corresponding id*/
         return [...this.units.player1, ...this.units.player2].find(unit => unit.id === unitId);
     }
 
     getUnitAtPosition(position) {
+        /*using spread syntax "..." to list all array elements then join all units of both players into
+        a single array then find the unit with the corresponding position*/
         return [...this.units.player1, ...this.units.player2].find(unit => 
             unit.position && unit.position.row === position.row && unit.position.col === position.col
         );
@@ -190,7 +194,8 @@ class UnitManager {
     }
 }
 
-// Initialize units when the document is ready
+// initialize units when the document is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    //assign a UnitManager object as a field to window global object
     window.unitManager = new UnitManager();
 }); 
