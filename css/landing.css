@@ -8,10 +8,8 @@
 body {
   font-family: "Cinzel", serif;
   min-height: 100vh;
-  /* background: url("https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")
-    no-repeat center center fixed; */
-  background: url("../assets/images/backgrounds/bg.avif") no-repeat center center
-    fixed;
+  background: url("../assets/images/backgrounds/bg.avif") no-repeat center
+    center fixed;
   background-size: cover;
   color: #fff;
 }
@@ -23,13 +21,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: url("https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")
-    no-repeat center center fixed; */
-  background: url("../assets/images/backgrounds/bg.avif") no-repeat center center
-    fixed;
+  background: url("../assets/images/backgrounds/bg.avif") no-repeat center
+    center fixed;
   background-size: cover;
 }
-
+/* Fullscreen dark transparent overlay with blur effect */
 .intro-overlay {
   position: absolute;
   top: 0;
@@ -74,7 +70,7 @@ body {
 }
 
 .intro-description p {
-  margin: 1rem 0;
+  margin: 1rem 0; /* Add vertical space (top and bottom) of 1rem around paragraphs */
 }
 
 .music-control {
@@ -93,7 +89,7 @@ body {
   color: #ffd700;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /* smooth hover effect */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,12 +108,6 @@ body {
   border-color: #666;
   color: #666;
   animation: none;
-}
-
-@keyframes musicPulse {
-  0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
-  50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5); }
-  100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
 }
 
 .landing-container {
@@ -285,7 +275,6 @@ body {
   font-weight: bold;
   color: #ffd700;
   align-self: flex-start;
-  /* margin-left: 1rem; */
   margin-bottom: 0.5rem;
 }
 
@@ -371,7 +360,7 @@ body {
   padding: 2rem;
   color: #fff;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow-y: auto; /* if the content is too long add a vertical scrollbar */
 }
 
 .close-modal {
@@ -413,6 +402,17 @@ body {
 }
 
 /* Animations */
+@keyframes musicPulse {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+  }
+}
 @keyframes glow {
   from {
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
@@ -423,7 +423,7 @@ body {
       0 0 30px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
   }
 }
-
+/* Start invisible and 20px lower, end fully visible and in place */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -432,36 +432,5 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .game-title {
-    font-size: 3rem;
-  }
-
-  .game-subtitle {
-    font-size: 1.2rem;
-  }
-
-  .clans {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .clan-card {
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .game-controls {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .modal-content {
-    margin: 1rem;
-    padding: 1rem;
   }
 }

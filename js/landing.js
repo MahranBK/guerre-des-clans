@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let player2Clan = null;
   let isMusicPlaying = false;
 
-  // Music Control
+  // Music Control -> Create the music
   let backgroundMusic = new Audio("assets/audio/music/bg_music.mp3");
   backgroundMusic.loop = true;
   backgroundMusic.volume = 0.4;
@@ -25,39 +25,35 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isMusicPlaying) {
       backgroundMusic.pause();
       isMusicPlaying = false;
-      toggleMusicBtn.textContent = '🔈';
-      toggleMusicBtn.classList.add('muted');
+      toggleMusicBtn.textContent = "🔈";
+      toggleMusicBtn.classList.add("muted");
     } else {
-      backgroundMusic.play().catch(error => {
+      backgroundMusic.play().catch((error) => {
         console.log("Music playback failed:", error);
       });
       isMusicPlaying = true;
-      toggleMusicBtn.textContent = '🔊';
-      toggleMusicBtn.classList.remove('muted');
+      toggleMusicBtn.textContent = "🔊";
+      toggleMusicBtn.classList.remove("muted");
     }
   }
 
-  // Initialize music button
-  toggleMusicBtn.addEventListener('click', toggleMusic);
+  // connect the function to the button
+  toggleMusicBtn.addEventListener("click", toggleMusic);
 
   // Sound effects
-  const hoverSound = new Audio(
-    "./assets/audio/effects/hoverOver.mp3"
-  );
+  const hoverSound = new Audio("./assets/audio/effects/hoverOver.mp3");
   hoverSound.volume = 0.25;
 
-  const clickSound = new Audio(
-    "./assets/audio/effects/click.mp3"
-  );
+  const clickSound = new Audio("./assets/audio/effects/click.mp3");
   clickSound.volume = 0.3;
 
   // Enter game button
   enterGameBtn.addEventListener("click", () => {
-    clickSound.play();
+    clickSound.play(); // Play click sound effect
     introScreen.style.display = "none";
     landingContainer.style.display = "flex";
     if (!isMusicPlaying) {
-      backgroundMusic.play().catch(error => {
+      backgroundMusic.play().catch((error) => {
         console.log("Music playback failed:", error);
       });
       toggleMusicBtn.textContent = "🔊";
@@ -69,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   player1Clans.forEach((card) => {
     card.addEventListener("click", () => {
       clickSound.play();
-      player1Clans.forEach((c) => c.classList.remove("selected"));
+      player1Clans.forEach((c) => c.classList.remove("selected")); // so only one card can be selected at a time
       card.classList.add("selected");
       // assign chosen card data-clan attribute value to player1Clan
       player1Clan = card.dataset.clan;
@@ -82,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       clickSound.play();
       player2Clans.forEach((c) => c.classList.remove("selected"));
       card.classList.add("selected");
-      // assign chosen card data-clan attribute value to player1Clan
       player2Clan = card.dataset.clan;
     });
   });
@@ -116,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // store chosen clans of both players into local storage of the browser
     localStorage.setItem("player1Clan", player1Clan);
     localStorage.setItem("player2Clan", player2Clan);
-    // redirect to game page 
+    // redirect to game page
     window.location.href = "pages/game.html";
   });
 
@@ -134,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "click",
     () => {
       if (!isMusicPlaying) {
-        backgroundMusic.play().catch(error => {
+        backgroundMusic.play().catch((error) => {
           console.log("Music playback failed:", error);
         });
         toggleMusicBtn.textContent = "🔊";
@@ -144,4 +139,3 @@ document.addEventListener("DOMContentLoaded", () => {
     { once: true } // remove event listener after first time being triggered
   );
 });
-
