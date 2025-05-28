@@ -1,9 +1,7 @@
 class DefenseManager {
     constructor() {
-        // Defense bonus configuration
         this.DEFENSE_BONUS = 2;
-        // to track current defending units
-        this.defendingUnits = new Map(); // Map<unitId, {unit, bonusAmount, startTurn}>
+        this.defendingUnits = new Map();
     }
 
     startDefense(unit) {
@@ -12,109 +10,43 @@ class DefenseManager {
             return false;
         }
 
-        // Get cell for visual effect
         const cell = document.getElementById(`cell-${unit.position.row}-${unit.position.col}`);
-        
-        // Add defending visual state
         const unitElement = cell.querySelector('.unit');
         unitElement.classList.add('defending');
         unitElement.classList.add('acted');
         
-        // Calculate defense bonus including stacking from other defending units in same cell
-        const stackedBonus = this.calculateStackedDefenseBonus(unit);
+        const defenseBonus = this.DEFENSE_BONUS;
         
-        // Store defending unit info with current turn number
         this.defendingUnits.set(unit.id, {
             unit,
-            bonusAmount: stackedBonus,
+            bonusAmount: defenseBonus,
             startTurn: window.turnManager.state.turnCount
         });
 
-        // Apply defense bonus
-        unit.baseDefense = unit.defense; // Store original defense
-        unit.defense += stackedBonus;
+        // apply defense bonus & keep the baseDefense backup
+        unit.baseDefense = unit.defense;
+        unit.defense += defenseBonus;
         unit.temporaryDefense = true;
 
-        // Mark unit as having acted
         unit.hasActed = true;
-        unit.hasMoved = true; // Prevent movement after defending
+        unit.hasMoved = true;
 
-        // Log the action
-        window.turnManager.logGameEvent(`🛡️ ${unit.type} takes a defensive stance (+${stackedBonus} DEF)`);
-        
+        window.turnManager.logGameEvent(`🛡️ ${unit.type} takes a defensive stance (+${defenseBonus} DEF)`);
         return true;
     }
-
-    //Calculate total defense bonus including stacking from other defending units
-    
-    calculateStackedDefenseBonus(unit) {
-        let bonus = this.DEFENSE_BONUS;
-        
-        // Check for other defending units in the same cell
-        const cell = document.getElementById(`cell-${unit.position.row}-${unit.position.col}`);
-        const unitsInCell = this.getUnitsInCell(cell);
-        
-        // Count defending allies in the same cell
-        let defendingAllies = 0;
-        unitsInCell.forEach(otherUnit => {
-            if (otherUnit.id !== unit.id && 
-                otherUnit.owner === unit.owner && 
-                this.defendingUnits.has(otherUnit.id)) {
-                defendingAllies++;
-            }
-        });
-
-        // Stack defense bonuses - each additional defender adds 50% of base bonus
-        if (defendingAllies > 0) {
-            bonus += (this.DEFENSE_BONUS * 0.5 * defendingAllies);
-            window.turnManager.logGameEvent(`💫 Defense bonus stacked with ${defendingAllies} other defender${defendingAllies > 1 ? 's' : ''}!`);
-        }
-
-        return Math.floor(bonus); // round down the final bonus
-    }
-
-    //  get all units that are in the same cell
-    getUnitsInCell(cell) {
-        const unitId = cell.dataset.unitId;
-        if (!unitId) return [];
-        
-        return [window.unitManager.getUnitById(unitId)].filter(Boolean);
-    }
-
-    getCellDefenseBonus(cell) {
-        const unitsInCell = this.getUnitsInCell(cell);
-        let totalBonus = 0;
-
-        unitsInCell.forEach(unit => {
-            if (unit.temporaryDefense) {
-                const defenseInfo = this.defendingUnits.get(unit.id);
-                if (defenseInfo) {
-                    totalBonus += defenseInfo.bonusAmount;
-                }
-            }
-        });
-
-        return totalBonus;
-    }
-
-    //Reset defense state at the end of turn
 
     resetDefenseState(currentPlayer) {
         const currentTurn = window.turnManager.state.turnCount;
         
-        // Remove defense bonuses & visual states for units that defended two turns ago
         this.defendingUnits.forEach((info, unitId) => {
             const { unit, startTurn } = info;
             
-            // Reset defense if it's been active for a full round (both players' turns)
             if (currentTurn > startTurn + 1) {
-                // Reset defense to base value
                 if (unit.temporaryDefense) {
                     unit.defense = unit.baseDefense;
                     unit.temporaryDefense = false;
                 }
                 
-                // Remove defending visual state
                 const cell = document.getElementById(`cell-${unit.position.row}-${unit.position.col}`);
                 if (cell) {
                     const unitElement = cell.querySelector('.unit');
@@ -123,23 +55,18 @@ class DefenseManager {
                     }
                 }
                 
-                // Remove from defending units map
                 this.defendingUnits.delete(unitId);
-                
                 window.turnManager.logGameEvent(`🛡️ ${unit.type}'s defensive stance ends`);
             }
         });
     }
 
-    //Get the current defense bonus for a unit
-    
     getDefenseBonus(unit) {
         const info = this.defendingUnits.get(unit.id);
         return info ? info.bonusAmount : 0;
     }
 }
 
-// Initialize defense manager when document is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.defenseManager = new DefenseManager();
-}); 
+});
