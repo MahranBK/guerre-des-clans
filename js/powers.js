@@ -1,25 +1,25 @@
 class PowerManager {
     constructor() {
-        // Power configurations
+        // units powers config
         this.powers = {
             warrior: [{
-                name: 'Contre-Attaque',
-                description: 'Si attaqué au prochain tour, renvoie une partie des dégâts à l\'attaquant.',
+                name: 'Counter-Attack',
+                description: 'If attacked on the next turn, reflects some of the damage back to the attacker.',
                 range: 0,
                 cooldown: 1,
                 riposteMultiplier: 0.5 // 50% damage return
             }],
             archer: [{
-                name: 'Tir Précis',
-                description: 'Prochain tir ignore 50% de la défense ennemie et touche plus facilement.',
+                name: 'Precise Shot',
+                description: 'Next shot ignores 50% of the enemy\'s defense.',
                 range: 0,
                 cooldown: 1,
                 defenseIgnore: 0.5,
                 hitBonus: 1 // Reduces hit threshold by 1
             }],
             mage: [{
-                name: 'Explosion de Feu',
-                description: 'Inflige des dégâts aux ennemis dans une zone 3x3.',
+                name: 'Fire Explosion',
+                description: 'Deals damage to enemies in a 3x3 area.',
                 range: 2,
                 cooldown: 1,
                 aoeRange: 1, // 3x3 grid (1 cell in each direction)
@@ -35,13 +35,13 @@ class PowerManager {
 
     startPowerSelection(unit) {
         if (unit.hasActed) {
-            window.turnManager.logGameEvent('⚠️ Cette unité a déjà agi ce tour');
+            window.turnManager.logGameEvent('⚠️ This unit has already acted');
             return false;
         }
 
         const availablePowers = this.powers[unit.type.toLowerCase()];
         if (!availablePowers || availablePowers.length === 0) {
-            window.turnManager.logGameEvent('⚠️ Cette unité n\'a pas de pouvoir disponible');
+            window.turnManager.logGameEvent('⚠️ This unit has no available power');
             return false;
         }
 
@@ -49,7 +49,7 @@ class PowerManager {
         const power = availablePowers[0]; // Currently one power per type
         const cooldownKey = `${unit.id}_${power.name}`;
         if (this.cooldowns.get(cooldownKey) > 0) {
-            window.turnManager.logGameEvent(`⚠️ ${power.name} est encore en recharge`);
+            window.turnManager.logGameEvent('⚠️ ${power.name} is still on cooldown');
             return false;
         }
 
@@ -105,7 +105,7 @@ class PowerManager {
         // Set up precision shot effect
         this.activeEffects.set(unit.id, {
             effectType: 'precision',
-            duration: 1, // Until next attack
+            duration: 1, // until next attack (1 turn duration)
             params: {
                 defenseIgnore: power.defenseIgnore,
                 hitBonus: power.hitBonus
@@ -124,7 +124,7 @@ class PowerManager {
         unit.hasActed = true;
 
         // Log activation
-        window.turnManager.logGameEvent(`🎯 ${unit.type} active Tir Précis!`, 'power');
+        window.turnManager.logGameEvent(`🎯 ${unit.type} activates precise  shot !`, 'power');
         return true;
     }
 
@@ -134,7 +134,7 @@ class PowerManager {
         const distance = Math.abs(targetPosition.row - unit.position.row) + 
                         Math.abs(targetPosition.col - unit.position.col);
         if (distance > power.range) {
-            window.turnManager.logGameEvent('⚠️ Cible hors de portée');
+            window.turnManager.logGameEvent('⚠️ Target out of range');
             return false;
         }
 
@@ -163,7 +163,7 @@ class PowerManager {
         });
 
         if (hitCount === 0) {
-            window.turnManager.logGameEvent('⚠️ Aucune cible dans la zone d\'effet');
+            window.turnManager.logGameEvent('⚠️ No target is in the aoE');
             return false;
         }
 
@@ -179,7 +179,7 @@ class PowerManager {
         unit.hasActed = true;
 
         // Log activation
-        window.turnManager.logGameEvent(`🔥 ${unit.type} lance Explosion de Feu! (${hitCount} cibles touchées)`, 'power');
+        window.turnManager.logGameEvent(`🔥 ${unit.type} launches fire explosionss! (${hitCount} cibles touchées)`, 'power');
         return true;
     }
 
@@ -188,7 +188,7 @@ class PowerManager {
         const cells = [];
         for (let row = center.row - range; row <= center.row + range; row++) {
             for (let col = center.col - range; col <= center.col + range; col++) {
-                if (row >= 0 && row < 10 && col >= 0 && col < 10) { // Assuming 10x10 grid
+                if (row >= 0 && row < 10 && col >= 0 && col < 10) {
                     cells.push({ row, col });
                 }
             }
