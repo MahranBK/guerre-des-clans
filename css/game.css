@@ -5,8 +5,8 @@
 body {
   font-family: "Cinzel", serif;
   min-height: 100vh;
-  background: url("../assets/images/backgrounds/bg.avif") no-repeat center center
-    fixed;
+  background: url("../assets/images/backgrounds/bg.avif") no-repeat center
+    center fixed;
   background-size: cover;
   color: #fff;
   margin: 0;
@@ -66,15 +66,19 @@ body {
   position: relative;
   overflow: hidden;
 }
-
+/* Adds a soft golden glow layer on top of the panel for visual effect */
 .player-panel::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.1) 0%,
+    transparent 100%
+  );
   pointer-events: none;
 }
 
@@ -94,7 +98,7 @@ body {
 }
 
 .unit-info {
-  flex: 1;
+  flex: 1; /* Makes the unit grow to fill the available space inside its flex container */
   overflow-y: auto;
   padding-right: 0.5rem;
   margin-top: 0.5rem;
@@ -138,7 +142,10 @@ body {
 
 #battlefield-grid {
   display: grid;
-  grid-template-columns: repeat(10, 40px);
+  grid-template-columns: repeat(
+    10,
+    40px
+  ); /* create 10 columns each 40px wide */
   grid-template-rows: repeat(10, 40px);
   gap: 2px;
   background: rgba(0, 0, 0, 0.3);
@@ -172,19 +179,31 @@ body {
   transform: scale(1.05);
 }
 
-/* Zone styling with fantasy theme */
+/* Grid Zone styling applied dynamically via grid.js  */
 .player1-zone {
-  background: linear-gradient(to bottom, rgba(41, 128, 185, 0.2), rgba(41, 128, 185, 0.1));
+  background: linear-gradient(
+    to bottom,
+    rgba(41, 128, 185, 0.2),
+    rgba(41, 128, 185, 0.1)
+  );
   border-color: #3498db;
 }
 
 .neutral-zone {
-  background: linear-gradient(to bottom, rgba(149, 165, 166, 0.2), rgba(149, 165, 166, 0.1));
+  background: linear-gradient(
+    to bottom,
+    rgba(149, 165, 166, 0.2),
+    rgba(149, 165, 166, 0.1)
+  );
   border-color: #95a5a6;
 }
 
 .player2-zone {
-  background: linear-gradient(to bottom, rgba(192, 57, 43, 0.2), rgba(192, 57, 43, 0.1));
+  background: linear-gradient(
+    to bottom,
+    rgba(192, 57, 43, 0.2),
+    rgba(192, 57, 43, 0.1)
+  );
   border-color: #e74c3c;
 }
 
@@ -243,7 +262,7 @@ body {
   position: relative;
 }
 .unit.defending::before {
-  content: '🛡️';
+  content: "🛡️";
   position: absolute;
   top: -15px;
   right: -5px;
@@ -258,19 +277,25 @@ body {
   filter: grayscale(50%);
 }
 .unit.acted::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   bottom: -10px;
   right: -5px;
   font-size: 0.8em;
-  color: #4CAF50;
+  color: #4caf50;
   text-shadow: 0 0 5px rgba(76, 175, 80, 0.8);
 }
 
 @keyframes shieldPulse {
-  0% { box-shadow: 0 0 10px rgba(0, 225, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(0, 225, 255, 0.6); }
-  100% { box-shadow: 0 0 10px rgba(0, 225, 255, 0.3); }
+  0% {
+    box-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 225, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
+  }
 }
 
 /* Game controls */
@@ -301,7 +326,8 @@ body {
   flex-wrap: nowrap;
 }
 
-.action-buttons button, #roll-dice {
+.action-buttons button,
+#roll-dice {
   background: linear-gradient(45deg, #ffd700, #ffa500);
   color: #222;
   border: none;
@@ -319,7 +345,8 @@ body {
   cursor: pointer;
 }
 
-.action-buttons button:hover, #roll-dice:hover {
+.action-buttons button:hover,
+#roll-dice:hover {
   background: linear-gradient(45deg, #ffa500, #ffd700);
   box-shadow: 0 0 20px #ffd700cc;
   transform: scale(1.05);
@@ -371,11 +398,21 @@ body {
 }
 
 @keyframes diceRoll {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(90deg) scale(1.1); }
-  50% { transform: rotate(180deg) scale(1); }
-  75% { transform: rotate(270deg) scale(1.1); }
-  100% { transform: rotate(360deg) scale(1); }
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
 }
 
 /* Game log */
@@ -417,12 +454,12 @@ body {
   .game-controls {
     flex-direction: column;
   }
-  
+
   .action-buttons {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .action-buttons button {
     min-width: 100px;
     padding: 0.5rem 1rem;
@@ -437,7 +474,11 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(120deg, rgba(0, 0, 0, 0.3) 60%, rgba(255, 215, 0, 0.08) 100%);
+  background: linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(255, 215, 0, 0.08) 100%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -457,7 +498,7 @@ body {
 }
 
 .unit-display::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -511,7 +552,7 @@ body {
 }
 
 .unit-hp::before {
-  content: '❤️';
+  content: "❤️";
   font-size: 0.9rem;
 }
 
@@ -521,7 +562,7 @@ body {
 }
 
 .unit-display.defending::after {
-  content: '🛡️';
+  content: "🛡️";
   position: absolute;
   top: -5px;
   right: -5px;
@@ -535,7 +576,7 @@ body {
 }
 
 .unit-display.acted::after {
-  content: '✓';
+  content: "✓";
   position: absolute;
   bottom: -5px;
   right: -5px;
@@ -649,7 +690,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border: 2px solid #ffd700;
   border-radius: 10px;
-  font-family: 'MedievalSharp', cursive;
+  font-family: "MedievalSharp", cursive;
   font-size: 1.2rem;
   color: #ffd700;
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
@@ -689,9 +730,15 @@ body {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 255, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+  }
 }
 
 /* Unit movement animation */
@@ -726,7 +773,7 @@ body {
 }
 
 .placement-controls button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -750,9 +797,15 @@ body {
 }
 
 @keyframes borderGlow {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 
 /* Hide dice section by default during placement */
@@ -777,9 +830,15 @@ body {
 }
 
 @keyframes placementPulse {
-  0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+  }
 }
 
 /* Player zones during placement */
@@ -884,9 +943,15 @@ body {
 }
 
 @keyframes buttonPulse {
-  0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-  100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  0% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+  }
 }
 
 /* Selected Unit Highlight */
@@ -904,23 +969,37 @@ body {
 
 /* Combat Animations */
 @keyframes shake {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(-2px, 2px) rotate(-1deg); }
-  50% { transform: translate(2px, -2px) rotate(1deg); }
-  75% { transform: translate(-2px, -2px) rotate(-1deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-2px, 2px) rotate(-1deg);
+  }
+  50% {
+    transform: translate(2px, -2px) rotate(1deg);
+  }
+  75% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
 }
 
 @keyframes flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes floatUp {
-  0% { 
+  0% {
     transform: translateY(0);
     opacity: 1;
   }
-  100% { 
+  100% {
     transform: translateY(-30px);
     opacity: 0;
   }
@@ -984,9 +1063,15 @@ body {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 5px #ff3333; }
-  50% { box-shadow: 0 0 15px #ff3333; }
-  100% { box-shadow: 0 0 5px #ff3333; }
+  0% {
+    box-shadow: 0 0 5px #ff3333;
+  }
+  50% {
+    box-shadow: 0 0 15px #ff3333;
+  }
+  100% {
+    box-shadow: 0 0 5px #ff3333;
+  }
 }
 
 /* Combat Log Enhancement */
@@ -1026,7 +1111,7 @@ body {
 }
 
 .unit.power-active.riposte::after {
-  content: '⚔️';
+  content: "⚔️";
   position: absolute;
   top: -15px;
   right: -5px;
@@ -1040,7 +1125,7 @@ body {
 }
 
 .unit.power-active.precision::after {
-  content: '🎯';
+  content: "🎯";
   position: absolute;
   top: -15px;
   right: -5px;
@@ -1054,7 +1139,7 @@ body {
 }
 
 .unit.power-active.casting::after {
-  content: '🔮';
+  content: "🔮";
   position: absolute;
   top: -15px;
   right: -5px;
@@ -1064,22 +1149,43 @@ body {
 
 .grid-cell.explosion {
   animation: explode 1s ease-out;
-  background: radial-gradient(circle, rgba(255, 0, 0, 0.5) 0%, rgba(255, 165, 0, 0.3) 50%, transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 0, 0.5) 0%,
+    rgba(255, 165, 0, 0.3) 50%,
+    transparent 100%
+  );
 }
 
 @keyframes powerPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes explode {
   0% {
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.8) 0%, rgba(255, 165, 0, 0.6) 50%, transparent 100%);
+    background: radial-gradient(
+      circle,
+      rgba(255, 0, 0, 0.8) 0%,
+      rgba(255, 165, 0, 0.6) 50%,
+      transparent 100%
+    );
     transform: scale(1);
   }
   50% {
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, rgba(255, 165, 0, 0.4) 50%, transparent 100%);
+    background: radial-gradient(
+      circle,
+      rgba(255, 0, 0, 0.6) 0%,
+      rgba(255, 165, 0, 0.4) 50%,
+      transparent 100%
+    );
     transform: scale(1.2);
   }
   100% {
@@ -1181,9 +1287,15 @@ body {
 }
 
 @keyframes aoePulse {
-  0% { background: rgba(255, 0, 0, 0.1); }
-  50% { background: rgba(255, 0, 0, 0.3); }
-  100% { background: rgba(255, 0, 0, 0.1); }
+  0% {
+    background: rgba(255, 0, 0, 0.1);
+  }
+  50% {
+    background: rgba(255, 0, 0, 0.3);
+  }
+  100% {
+    background: rgba(255, 0, 0, 0.1);
+  }
 }
 
 /* Victory Overlay */
@@ -1274,7 +1386,11 @@ body {
 
 /* Victory Log Entry */
 .log-entry.victory {
-  background: linear-gradient(to right, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+  background: linear-gradient(
+    to right,
+    rgba(255, 215, 0, 0.1),
+    rgba(255, 215, 0, 0.2)
+  );
   border-left: 3px solid #ffd700;
   font-weight: bold;
   padding: 10px;
@@ -1284,8 +1400,12 @@ body {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
