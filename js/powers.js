@@ -32,11 +32,7 @@ class PowerManager {
         this.cooldowns = new Map(); // Map<unitId_powerName, turnsRemaining>
     }
 
-    /**
-     * Start power selection for a unit
-     * @param {Unit} unit - The unit using the power
-     * @returns {boolean} Whether power selection can start
-     */
+
     startPowerSelection(unit) {
         if (unit.hasActed) {
             window.turnManager.logGameEvent('⚠️ Cette unité a déjà agi ce tour');
@@ -60,13 +56,7 @@ class PowerManager {
         return true;
     }
 
-    /**
-     * Use a power on a target
-     * @param {Unit} unit - The unit using the power
-     * @param {string} powerName - Name of the power to use
-     * @param {Object} targetPosition - {row, col} of target
-     * @returns {boolean} Whether the power was used successfully
-     */
+
     usePower(unit, powerName, targetPosition) {
         const power = this.powers[unit.type.toLowerCase()][0];
         if (!power || power.name !== powerName) return false;
@@ -83,11 +73,7 @@ class PowerManager {
         }
     }
 
-    /**
-     * Activate Contre-Attaque power
-     * @param {Unit} unit - The warrior unit
-     * @param {Object} power - Power configuration
-     */
+
     activateContrAttaque(unit, power) {
         // Set up riposte effect
         this.activeEffects.set(unit.id, {
@@ -114,11 +100,7 @@ class PowerManager {
         return true;
     }
 
-    /**
-     * Activate Tir Précis power
-     * @param {Unit} unit - The archer unit
-     * @param {Object} power - Power configuration
-     */
+    
     activateTirPrecis(unit, power) {
         // Set up precision shot effect
         this.activeEffects.set(unit.id, {
@@ -146,12 +128,7 @@ class PowerManager {
         return true;
     }
 
-    /**
-     * Activate Explosion de Feu power
-     * @param {Unit} unit - The mage unit
-     * @param {Object} power - Power configuration
-     * @param {Object} targetPosition - Target position for the explosion
-     */
+    
     activateExplosionDeFeu(unit, power, targetPosition) {
         // Check range
         const distance = Math.abs(targetPosition.row - unit.position.row) + 
@@ -206,12 +183,7 @@ class PowerManager {
         return true;
     }
 
-    /**
-     * Get cells affected by AoE
-     * @param {Object} center - Center position of AoE
-     * @param {number} range - Range of AoE
-     * @returns {Array} Array of affected positions
-     */
+    
     getAoECells(center, range) {
         const cells = [];
         for (let row = center.row - range; row <= center.row + range; row++) {
@@ -224,11 +196,7 @@ class PowerManager {
         return cells;
     }
 
-    /**
-     * Show floating damage number
-     * @param {HTMLElement} cell - Target cell element
-     * @param {number} damage - Damage amount
-     */
+    
     showDamageNumber(cell, damage) {
         const damagePopup = document.createElement('div');
         damagePopup.className = 'damage-popup';
@@ -237,19 +205,14 @@ class PowerManager {
         setTimeout(() => damagePopup.remove(), 1000);
     }
 
-    /**
-     * Set cooldown for a power
-     * @param {Unit} unit - The unit
-     * @param {Object} power - Power configuration
-     */
+    
     setCooldown(unit, power) {
         const cooldownKey = `${unit.id}_${power.name}`;
         this.cooldowns.set(cooldownKey, power.cooldown);
     }
 
-    /**
-     * Update cooldowns at turn end
-     */
+    //Update cooldowns at turn end
+    
     updateCooldowns() {
         this.cooldowns.forEach((value, key) => {
             if (value > 0) {
@@ -258,12 +221,7 @@ class PowerManager {
         });
     }
 
-    /**
-     * Check for and apply riposte damage
-     * @param {Unit} attacker - Attacking unit
-     * @param {Unit} defender - Defending unit
-     * @param {number} damage - Original damage dealt
-     */
+
     checkAndApplyRiposte(attacker, defender, damage) {
         const effect = this.activeEffects.get(defender.id);
         if (effect && effect.effectType === 'riposte') {
@@ -279,11 +237,7 @@ class PowerManager {
         }
     }
 
-    /**
-     * Get precision shot bonus if active
-     * @param {Unit} unit - The attacking unit
-     * @returns {Object} Bonus parameters
-     */
+    
     getPrecisionShotBonus(unit) {
         const effect = this.activeEffects.get(unit.id);
         if (effect && effect.effectType === 'precision') {
@@ -294,9 +248,8 @@ class PowerManager {
         return null;
     }
 
-    /**
-     * Clean up expired effects
-     */
+    //Clean up expired effects
+    
     cleanupEffects() {
         this.activeEffects.forEach((effect, unitId) => {
             effect.duration--;
