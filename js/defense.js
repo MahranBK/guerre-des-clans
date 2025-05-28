@@ -2,13 +2,10 @@ class DefenseManager {
     constructor() {
         // Defense bonus configuration
         this.DEFENSE_BONUS = 2;
+        // to track current defending units
         this.defendingUnits = new Map(); // Map<unitId, {unit, bonusAmount, startTurn}>
     }
 
-    /**
-     * Start defense mode for a unit
-     * @param {Unit} unit - The unit to defend
-     */
     startDefense(unit) {
         if (unit.hasActed) {
             window.turnManager.logGameEvent('⚠️ This unit has already acted this turn');
@@ -21,7 +18,7 @@ class DefenseManager {
         // Add defending visual state
         const unitElement = cell.querySelector('.unit');
         unitElement.classList.add('defending');
-        unitElement.classList.add('acted'); // Mark as having used its action
+        unitElement.classList.add('acted');
         
         // Calculate defense bonus including stacking from other defending units in same cell
         const stackedBonus = this.calculateStackedDefenseBonus(unit);
@@ -48,11 +45,8 @@ class DefenseManager {
         return true;
     }
 
-    /**
-     * Calculate total defense bonus including stacking from other defending units
-     * @param {Unit} unit - The unit taking defensive stance
-     * @returns {number} Total defense bonus
-     */
+    //Calculate total defense bonus including stacking from other defending units
+    
     calculateStackedDefenseBonus(unit) {
         let bonus = this.DEFENSE_BONUS;
         
@@ -76,14 +70,10 @@ class DefenseManager {
             window.turnManager.logGameEvent(`💫 Defense bonus stacked with ${defendingAllies} other defender${defendingAllies > 1 ? 's' : ''}!`);
         }
 
-        return Math.floor(bonus); // Round down the final bonus
+        return Math.floor(bonus); // round down the final bonus
     }
 
-    /**
-     * Get all units in a cell
-     * @param {HTMLElement} cell - The cell element
-     * @returns {Array<Unit>} Array of units in the cell
-     */
+    //  get all units that are in the same cell
     getUnitsInCell(cell) {
         const unitId = cell.dataset.unitId;
         if (!unitId) return [];
@@ -91,11 +81,6 @@ class DefenseManager {
         return [window.unitManager.getUnitById(unitId)].filter(Boolean);
     }
 
-    /**
-     * Get total defense bonus for a cell
-     * @param {HTMLElement} cell - The cell being attacked
-     * @returns {number} Combined defense bonus of all defending units
-     */
     getCellDefenseBonus(cell) {
         const unitsInCell = this.getUnitsInCell(cell);
         let totalBonus = 0;
@@ -112,14 +97,12 @@ class DefenseManager {
         return totalBonus;
     }
 
-    /**
-     * Reset defense state at the end of turn
-     * @param {string} currentPlayer - The player whose turn is ending
-     */
+    //Reset defense state at the end of turn
+
     resetDefenseState(currentPlayer) {
         const currentTurn = window.turnManager.state.turnCount;
         
-        // Remove defense bonuses and visual states for units that defended two turns ago
+        // Remove defense bonuses & visual states for units that defended two turns ago
         this.defendingUnits.forEach((info, unitId) => {
             const { unit, startTurn } = info;
             
@@ -148,11 +131,8 @@ class DefenseManager {
         });
     }
 
-    /**
-     * Get the current defense bonus for a unit
-     * @param {Unit} unit - The unit to check
-     * @returns {number} Current defense bonus (0 if not defending)
-     */
+    //Get the current defense bonus for a unit
+    
     getDefenseBonus(unit) {
         const info = this.defendingUnits.get(unit.id);
         return info ? info.bonusAmount : 0;

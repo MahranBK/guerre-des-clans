@@ -7,15 +7,10 @@ class CombatManager {
             mage: { min: 2, max: 2 }
         };
 
-        // Minimum roll needed to hit
+        // Minimum dice roll needed to hit successfully the opponent unit
         this.HIT_THRESHOLD = 3;
     }
 
-    /**
-     * Calculate valid attack targets for a unit
-     * @param {Unit} unit - The attacking unit
-     * @returns {Array} Array of valid target positions
-     */
     getValidTargets(unit) {
         const validTargets = [];
         
@@ -67,12 +62,6 @@ class CombatManager {
         return validTargets;
     }
 
-    /**
-     * Check if attack distance is valid for unit type
-     * @param {string} unitType - Type of the attacking unit
-     * @param {number} distance - Manhattan distance to target
-     * @returns {boolean}
-     */
     isValidAttackDistance(unitType, distance) {
         const range = this.ATTACK_RANGES[unitType.toLowerCase()];
         if (!range) {
@@ -96,11 +85,6 @@ class CombatManager {
         return distance >= range.min && distance <= range.max;
     }
 
-    /**
-     * Highlight valid attack targets
-     * @param {Unit} unit - The attacking unit
-     * @returns {boolean} Whether there are any valid targets
-     */
     showAttackRange(unit) {
         const validTargets = this.getValidTargets(unit);
         
@@ -117,11 +101,7 @@ class CombatManager {
         return validTargets.length > 0;
     }
 
-    /**
-     * Start attack mode for a unit
-     * @param {Unit} unit - The attacking unit
-     * @returns {boolean} Whether attack mode was started
-     */
+    
     startAttack(unit) {
         if (unit.hasActed) {
             window.turnManager.logGameEvent('⚠️ This unit has already acted this turn');
@@ -138,22 +118,15 @@ class CombatManager {
         return true;
     }
 
-    /**
-     * Remove attack range highlights
-     */
+    //Remove attack range highlights
+    
     removeAttackRange() {
         document.querySelectorAll('.valid-target').forEach(cell => {
             cell.classList.remove('valid-target');
         });
     }
 
-    /**
-     * Apply damage to a unit and handle death
-     * @param {Unit} attacker - The attacking unit
-     * @param {Unit} defender - The defending unit
-     * @param {number} damage - Amount of damage
-     * @param {boolean} isCritical - Whether this was a critical hit
-     */
+    
     applyDamage(attacker, defender, damage, isCritical) {
         // Get cells for visual effects
         const attackerCell = document.getElementById(`cell-${attacker.position.row}-${attacker.position.col}`);
@@ -201,10 +174,6 @@ class CombatManager {
         }
     }
 
-    /**
-     * Update the health bar of a unit
-     * @param {Unit} unit - The unit to update
-     */
     updateHealthBar(unit) {
         const cell = document.getElementById(`cell-${unit.position.row}-${unit.position.col}`);
         let healthBar = cell.querySelector('.health-bar');
@@ -223,11 +192,6 @@ class CombatManager {
         healthFill.style.width = `${healthPercentage}%`;
     }
 
-    /**
-     * Get dice dots pattern HTML for a given number
-     * @param {number} num - The dice number (1-6)
-     * @returns {string} HTML for the dice dots
-     */
     getDiceDots(num) {
         const patterns = {
             1: `<div class="dot" style="grid-area: 2/2"></div>`,
@@ -255,12 +219,6 @@ class CombatManager {
         return patterns[num] || '';
     }
 
-    /**
-     * Roll a D6 die
-     * @param {Unit} attacker - The attacking unit
-     * @param {Unit} defender - The defending unit
-     * @returns {Promise<number>} The roll result (1-6)
-     */
     async rollD6(attacker, defender) {
         const diceElement = document.querySelector('.dice');
         if (!diceElement) return Math.floor(Math.random() * 6) + 1;
@@ -334,12 +292,6 @@ class CombatManager {
         });
     }
 
-    /**
-     * Calculate and apply damage
-     * @param {Unit} attacker - The attacking unit
-     * @param {Unit} defender - The defending unit
-     * @returns {number} Amount of damage dealt
-     */
     calculateDamage(attacker, defender, precisionBonus = null) {
         let defense = defender.defense;
         
@@ -354,12 +306,6 @@ class CombatManager {
         return damage;
     }
 
-    /**
-     * Perform an attack
-     * @param {Unit} attacker - The attacking unit
-     * @param {Unit} defender - The defending unit
-     * @returns {Promise<Object>} Attack result
-     */
     async performAttack(attacker, defender) {
         // Check for precision shot bonus
         const precisionBonus = window.powerManager.getPrecisionShotBonus(attacker);
@@ -396,11 +342,6 @@ class CombatManager {
         return { hit: true, damage: finalDamage, isCritical };
     }
 
-    /**
-     * Get all units in a cell
-     * @param {HTMLElement} cell - The cell element
-     * @returns {Array} Array of units in the cell
-     */
     getUnitsInCell(cell) {
         const unitId = cell.dataset.unitId;
         if (!unitId) return [];
@@ -408,10 +349,7 @@ class CombatManager {
         return [window.unitManager.getUnitById(unitId)].filter(Boolean);
     }
 
-    /**
-     * Handle unit death
-     * @param {Unit} unit - The unit that died
-     */
+    
     handleUnitDeath(unit) {
         window.turnManager.logGameEvent(`💀 ${unit.type} has been defeated!`);
         
@@ -422,9 +360,8 @@ class CombatManager {
         this.checkGameEnd();
     }
 
-    /**
-     * Check if the game has ended
-     */
+    //Check if the game has ended
+
     checkGameEnd() {
         const player1Units = window.unitManager.units.player1.length;
         const player2Units = window.unitManager.units.player2.length;
@@ -438,10 +375,7 @@ class CombatManager {
         }
     }
 
-    /**
-     * Handle attack action
-     * @param {HTMLElement} targetCell - The cell being attacked
-     */
+
     async handleAttack(targetCell) {
         if (!this.selectedUnit || !targetCell) return;
 
