@@ -449,24 +449,6 @@ body {
   border-radius: 4px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .game-controls {
-    flex-direction: column;
-  }
-
-  .action-buttons {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .action-buttons button {
-    min-width: 100px;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-}
-
 /* Fantasy overlay effect */
 .fantasy-overlay {
   position: fixed;
@@ -746,7 +728,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Placement phase styles */
+/* Placement phase styles applied dynamically via placement.js */
 .placement-controls {
   display: flex;
   gap: 1rem;
