@@ -244,12 +244,6 @@ class TurnManager {
         img.style.width = '100%';
         img.style.height = '100%';
         
-        // Add error handling for image loading
-        img.onerror = () => {
-            console.error(`Failed to load dice image: ${img.src}`);
-            this.diceElement.textContent = number; // Fallback to number if image fails
-        };
-        
         this.diceElement.appendChild(img);
     }
 
