@@ -15,7 +15,7 @@ class PowerManager {
                 range: 0,
                 cooldown: 1,
                 defenseIgnore: 0.5,
-                hitBonus: 1 // Reduces hit threshold by 1
+                hitBonus: 1
             }],
             mage: [{
                 name: 'Fire Explosion',

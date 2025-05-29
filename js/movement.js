@@ -32,7 +32,7 @@ class MovementManager {
             return;
         }
 
-        // If clicked elsewhere, deselect unit
+        // If user clicks elsewhere other than than a valid cell then deselect unit
         this.deselectUnit();
     }
 
@@ -81,15 +81,13 @@ class MovementManager {
         const moveRange = unit.moveRange;
 
         // Check all cells within move range
-        for (let row = Math.max(0, unit.position.row - moveRange); 
-             row <= Math.min(9, unit.position.row + moveRange); row++) {
-            for (let col = Math.max(0, unit.position.col - moveRange);
-                 col <= Math.min(9, unit.position.col + moveRange); col++) {
+        for (let row = Math.max(0, unit.position.row - moveRange); row <= Math.min(9, unit.position.row + moveRange); row++) {
+            for (let col = Math.max(0, unit.position.col - moveRange); col <= Math.min(9, unit.position.col + moveRange); col++) {
                 
                 // Skip current position
                 if (row === unit.position.row && col === unit.position.col) continue;
 
-                // Check if move is within range (Manhattan distance)
+                // Check if move is within range using manhattan distance formula
                 const distance = Math.abs(row - unit.position.row) + Math.abs(col - unit.position.col);
                 if (distance <= moveRange) {
                     // Check if cell is empty or has only allied units

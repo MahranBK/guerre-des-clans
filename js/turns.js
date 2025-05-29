@@ -633,10 +633,7 @@ class TurnManager {
         this.logGameEvent(`🔄 Turn ended. Player ${this.state.currentPlayer === 'player1' ? '1' : '2'}'s turn`);
     }
 
-    /**
-     * Check if the game has ended
-     * @returns {boolean} Whether the game has ended
-     */
+
     checkGameEnd() {
         const player1Units = window.unitManager.units.player1.length;
         const player2Units = window.unitManager.units.player2.length;
@@ -650,10 +647,7 @@ class TurnManager {
         return false;
     }
 
-    /**
-     * Handle game over state
-     * @param {string} winner - The winning player number
-     */
+
     handleGameOver(winner) {
         // Update game status with victory message
         const victoryMessage = `🏆 Player ${winner} is Victorious! 🏆`;
