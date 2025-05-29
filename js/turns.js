@@ -199,7 +199,7 @@ class TurnManager {
             this.showDiceFace(this.state.diceRolls.player2);
             this.logGameEvent(`🎲 Player 2 rolls a ${this.state.diceRolls.player2}`);
 
-            // Determine starting player
+            // Determine which player starts playing
             if (this.state.diceRolls.player1 === this.state.diceRolls.player2) {
                 // Tie - reset rolls
                 this.logGameEvent('🎯 Tie! Roll again...');
@@ -209,7 +209,6 @@ class TurnManager {
                 return;
             }
 
-            // We have a winner - higher number wins
             this.state.currentPlayer = this.state.diceRolls.player1 > this.state.diceRolls.player2 ? 'player1' : 'player2';
             const winnerNumber = this.state.currentPlayer === 'player1' ? '1' : '2';
             const winnerRoll = this.state.currentPlayer === 'player1' ? this.state.diceRolls.player1 : this.state.diceRolls.player2;
